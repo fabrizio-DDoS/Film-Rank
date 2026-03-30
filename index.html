@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CinéRank — Track & Rank Your Films</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts: Bebas Neue (cinematic display) + DM Sans (readable body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ==================== GRAIN OVERLAY ==================== -->
+  <!-- Subtle film-grain texture layered over the whole page -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <span class="brand-icon">⬡</span>
+      <span class="brand-name">CinéRank</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" class="nav-link active" data-page="discover">Discover</a></li>
+      <li><a href="#" class="nav-link" data-page="compare">Ranking</a></li>
+      <li><a href="#" class="nav-link" data-page="ranking">My List</a></li>
+      <li><a href="#" class="nav-link" data-page="grid">Browse</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="main-content">
+
+    <!-- ===== PAGE 1: DISCOVER (Tinder-style swipe) ===== -->
+    <section class="page active" id="page-discover">
+
+      <div class="page-header">
+        <h1 class="page-title">Discover</h1>
+        <p class="page-subtitle">Have you seen this film?</p>
+      </div>
+
+      <!-- Swipe instruction hints -->
+      <div class="swipe-hints">
+        <span class="hint hint-left">✖ Skip</span>
+        <span class="hint hint-right">✔ Watched</span>
+      </div>
+
+      <!-- Card stack container -->
+      <div class="card-stack" id="cardStack">
+        <!-- Cards are injected by script.js -->
+      </div>
+
+      <!-- Action buttons -->
+      <div class="action-buttons">
+        <button class="action-btn skip-btn" id="skipBtn" title="Not interested">
+          <span class="btn-icon">✕</span>
+          <span class="btn-label">Skip</span>
+        </button>
+        <button class="action-btn rewind-btn" id="rewindBtn" title="Go back">
+          <span class="btn-icon">↩</span>
+          <span class="btn-label">Undo</span>
+        </button>
+        <button class="action-btn watch-btn" id="watchBtn" title="I watched this">
+          <span class="btn-icon">✓</span>
+          <span class="btn-label">Watched</span>
+        </button>
+      </div>
+
+      <!-- Progress indicator -->
+      <div class="discover-progress">
+        <span id="discoverCount">0</span> films in your list
+      </div>
+
+    </section>
+
+    <!-- ===== PAGE 2: COMPARE (Championship / Pairwise) ===== -->
+    <section class="page" id="page-compare">
+
+      <div class="page-header">
+        <h1 class="page-title">Head to Head</h1>
+        <p class="page-subtitle">Which film do you prefer?</p>
+      </div>
+
+      <div class="compare-arena" id="compareArena">
+
+        <!-- Left movie -->
+        <div class="compare-card" id="compareLeft" data-side="left">
+          <div class="compare-poster-wrap">
+            <img class="compare-poster" id="leftPoster" src="" alt="" />
+            <div class="compare-overlay">
+              <span class="pick-label">Pick</span>
+            </div>
+          </div>
+          <div class="compare-info">
+            <h3 class="compare-title" id="leftTitle">—</h3>
+            <span class="compare-year" id="leftYear">—</span>
+          </div>
+        </div>
+
+        <!-- VS divider -->
+        <div class="vs-divider">
+          <div class="vs-line"></div>
+          <span class="vs-text">VS</span>
+          <div class="vs-line"></div>
+        </div>
+
+        <!-- Right movie -->
+        <div class="compare-card" id="compareRight" data-side="right">
+          <div class="compare-poster-wrap">
+            <img class="compare-poster" id="rightPoster" src="" alt="" />
+            <div class="compare-overlay">
+              <span class="pick-label">Pick</span>
+            </div>
+          </div>
+          <div class="compare-info">
+            <h3 class="compare-title" id="rightTitle">—</h3>
+            <span class="compare-year" id="rightYear">—</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Skip pair button -->
+      <div class="compare-actions">
+        <button class="ghost-btn" id="skipPairBtn">Can't decide — skip pair</button>
+      </div>
+
+      <!-- Comparison counter -->
+      <div class="compare-counter">
+        <span id="comparesDone">0</span> comparisons made
+      </div>
+
+      <!-- No movies message (shown when < 2 watched) -->
+      <div class="empty-state hidden" id="compareEmpty">
+        <div class="empty-icon">🎬</div>
+        <h3>Not enough films yet</h3>
+        <p>You need at least 2 watched films to compare.<br />Head to Discover and add some!</p>
+        <button class="cta-btn" onclick="navigateTo('discover')">Go to Discover</button>
+      </div>
+
+    </section>
+
+    <!-- ===== PAGE 3: MY RANKING ===== -->
+    <section class="page" id="page-ranking">
+
+      <div class="page-header">
+        <h1 class="page-title">My Ranking</h1>
+        <p class="page-subtitle">Your personal film hierarchy</p>
+      </div>
+
+      <!-- Ranking list -->
+      <div class="ranking-container" id="rankingList">
+        <!-- Injected by script.js -->
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty-state hidden" id="rankingEmpty">
+        <div class="empty-icon">🏆</div>
+        <h3>Your ranking is empty</h3>
+        <p>Start discovering and comparing films to build your list.</p>
+        <button class="cta-btn" onclick="navigateTo('discover')">Start Discovering</button>
+      </div>
+
+    </section>
+
+    <!-- ===== PAGE 4: BROWSE GRID ===== -->
+    <section class="page" id="page-grid">
+
+      <div class="page-header">
+        <h1 class="page-title">Browse Films</h1>
+        <p class="page-subtitle">Popular titles — add to your watched list</p>
+      </div>
+
+      <!-- Search / filter bar -->
+      <div class="grid-controls">
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input type="text" class="search-input" id="gridSearch" placeholder="Search titles, directors, genres…" />
+        </div>
+        <div class="filter-pills" id="genreFilters">
+          <!-- Genre pills injected by script.js -->
+        </div>
+      </div>
+
+      <!-- Movie grid -->
+      <div class="movie-grid" id="movieGrid">
+        <!-- Cards injected by script.js -->
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ==================== TOAST NOTIFICATION ==================== -->
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <!-- ==================== MODAL (Movie Detail) ==================== -->
+  <div class="modal-backdrop hidden" id="modalBackdrop">
+    <div class="modal" id="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <div class="modal-content" id="modalContent">
+        <!-- Injected by script.js -->
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
