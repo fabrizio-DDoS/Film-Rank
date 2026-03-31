@@ -192,7 +192,7 @@ function openModal(movie) {
         <span>·</span>
         <span>${movie.director || ''}</span>
         <span>·</span>
-        ${movie.genres.map((g) => `<span class="genre-tag">${g}</span>`).join('')}
+        ${(movie.genres || []).map((g) => `<span class="genre-tag">${g}</span>`).join('')}
       </div>
       <p class="modal-desc">${movie.description || ''}</p>
       <div class="modal-actions">
